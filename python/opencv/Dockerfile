@@ -3,6 +3,6 @@ LABEL org.opencontainers.image.authors="kiki-kanri"
 LABEL version="1.0"
 
 RUN apt-get update
-RUN apt-get install libsm6 libxext6 libxrender-dev -y
+RUN apt-get install libgl1 libglib2.0-0 -y
 
 CMD ["python3.11"]
