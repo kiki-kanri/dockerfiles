@@ -2,5 +2,5 @@
 
 tag="kikikanri/python3.11:opencv"
 
-docker build -t $tag . &&
+docker build --no-cache -t $tag . &&
 	docker push $tag
