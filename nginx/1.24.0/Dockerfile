@@ -1,4 +1,4 @@
-FROM nginx:1.22.1-alpine
+FROM nginx:1.24.0-alpine
 LABEL org.opencontainers.image.authors="kiki-kanri"
 LABEL version="1.0"
 
