@@ -1,4 +1,4 @@
-FROM python:3.11.3-alpine
+FROM python:3.11.4-alpine
 LABEL org.opencontainers.image.authors="kiki-kanri"
 LABEL version="1.0"
 
