@@ -1,4 +1,4 @@
-FROM node:20-alpine3.17
+FROM node:current-alpine
 LABEL org.opencontainers.image.authors="kiki-kanri"
 LABEL version="1.0"
 
