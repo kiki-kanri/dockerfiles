@@ -1,1 +1,1 @@
-# Base nodejs (20.2.0) puppeteer browser image (use alpine 3.17).
+# Base nodejs (20.5.1) puppeteer browser image (use alpine 3).
