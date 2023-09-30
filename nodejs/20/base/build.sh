@@ -2,5 +2,6 @@
 
 tag="kikikanri/node20:base"
 
-docker build --no-cache -t $tag . &&
+docker pull node:current-alpine &&
+	docker build --no-cache -t $tag . &&
 	docker push $tag
