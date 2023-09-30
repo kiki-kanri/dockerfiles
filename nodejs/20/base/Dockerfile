@@ -13,4 +13,8 @@ RUN corepack enable
 RUN corepack install --global pnpm@latest
 RUN corepack install --global yarn@stable
 
+# Set pnpm env
+ENV PNPM_HOME="/pnpm"
+ENV PATH="$PNPM_HOME:$PATH"
+
 CMD ["node"]
