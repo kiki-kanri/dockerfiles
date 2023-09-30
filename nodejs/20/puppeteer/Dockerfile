@@ -4,7 +4,7 @@ LABEL version="1.0"
 
 # Install and upgrade packages
 RUN echo @edge http://nl.alpinelinux.org/alpine/edge/testing >> /etc/apk/repositories
-RUN apk add --no-cache chromium icu-data-full wqy-zenhei@edge
+RUN apk add --no-cache chromium font-noto-emoji wqy-zenhei@edge
 
 # Set puppeteer env
 ENV PUPPETEER_SKIP_CHROMIUM_DOWNLOAD=true

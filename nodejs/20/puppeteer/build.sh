@@ -2,5 +2,6 @@
 
 tag="kikikanri/node20:puppeteer"
 
-docker build --no-cache -t $tag . &&
+docker kikikanri/node20:base &&
+	docker build --no-cache -t $tag . &&
 	docker push $tag
