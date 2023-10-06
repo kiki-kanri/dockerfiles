@@ -4,7 +4,7 @@ LABEL version="1.0"
 
 # Install and upgrade packages
 RUN apk update && apk upgrade --no-cache
-RUN apk add --no-cache bash
+RUN apk add --no-cache bash perl
 
 # Setup package managers
 RUN npm i npm@latest -g
