@@ -9,12 +9,6 @@ for PY_VERSION in "${!versions[@]}"; do
 	FULL_PY_VERSION=${versions[$PY_VERSION]}
 	BUILD_ARGS="--build-arg FULL_PY_VERSION=$FULL_PY_VERSION --build-arg PY_VERSION=$PY_VERSION"
 
-	# Base
-	tag="kikikanri/python$PY_VERSION:base"
-	docker pull python:$FULL_PY_VERSION-slim &&
-		docker build -f ./base -t $tag $BUILD_ARGS . &&
-		docker push $tag || exit 1
-
 	# Base alpine
 	tag="kikikanri/python$PY_VERSION:base-alpine"
 	docker pull python:$FULL_PY_VERSION-alpine &&
@@ -25,5 +19,11 @@ for PY_VERSION in "${!versions[@]}"; do
 	tag="kikikanri/python$PY_VERSION:base-alpine-gcc"
 	docker pull kikikanri/python$PY_VERSION:base-alpine &&
 		docker build -f ./base-alpine-gcc -t $tag $BUILD_ARGS . &&
+		docker push $tag || exit 1
+
+	# Base slim
+	tag="kikikanri/python$PY_VERSION:base-slim"
+	docker pull python:$FULL_PY_VERSION-slim &&
+		docker build -f ./base-slim -t $tag $BUILD_ARGS . &&
 		docker push $tag || exit 1
 done
