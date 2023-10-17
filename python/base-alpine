@@ -3,10 +3,9 @@ ARG PY_VERSION
 
 FROM python:${FULL_PY_VERSION}-alpine
 LABEL org.opencontainers.image.authors="kiki-kanri"
-LABEL version="1.0"
 
 RUN apk update && apk upgrade --no-cache
-RUN apk add --no-cache libmagic
+RUN apk add --no-cache --upgrade libmagic
 RUN python${PY_VERSION} -m pip install -U --no-cache-dir pip python-dateutil setuptools wheel
 
 CMD ["python${PY_VERSION}"]

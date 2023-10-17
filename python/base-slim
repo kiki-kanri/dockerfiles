@@ -3,7 +3,6 @@ ARG PY_VERSION
 
 FROM python:${FULL_PY_VERSION}-slim
 LABEL org.opencontainers.image.authors="kiki-kanri"
-LABEL version="1.0"
 
 RUN apt-get update && apt-get upgrade -y
 RUN apt-get install libmagic1 -y
