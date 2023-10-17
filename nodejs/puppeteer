@@ -1,6 +1,7 @@
-FROM kikikanri/node20:base
+ARG BASE_IMAGE
+
+FROM ${BASE_IMAGE}
 LABEL org.opencontainers.image.authors="kiki-kanri"
-LABEL version="1.0"
 
 # Install and upgrade packages
 RUN echo @edge http://nl.alpinelinux.org/alpine/edge/testing >> /etc/apk/repositories

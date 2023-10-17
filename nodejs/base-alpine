@@ -1,6 +1,7 @@
-FROM node:current-alpine
+ARG NODE_IMAGE
+
+FROM ${NODE_IMAGE}
 LABEL org.opencontainers.image.authors="kiki-kanri"
-LABEL version="1.0"
 
 # Install and upgrade packages
 RUN apk update && apk upgrade --no-cache
