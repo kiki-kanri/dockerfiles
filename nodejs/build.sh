@@ -1,7 +1,8 @@
 #!/bin/bash
 
 declare -A versions=(
-	["20"]="current"
+	["20"]="20"
+	["21"]="21"
 )
 
 for NODE_VERSION in "${!versions[@]}"; do
