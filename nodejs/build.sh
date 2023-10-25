@@ -13,16 +13,16 @@ for NODE_VERSION in "${!versions[@]}"; do
 		docker build -f ./base-alpine -t $tag --build-arg NODE_IMAGE=$node_image . &&
 		docker push $tag || exit 1
 
-	# Puppeteer
-	base_image=$tag
+	# Base alpine puppeteer
+	base_image="kikikanri/node$NODE_VERSION:base-alpine"
 	tag="kikikanri/node$NODE_VERSION:puppeteer"
 	docker pull $base_image &&
 		docker build -f ./puppeteer -t $tag --build-arg BASE_IMAGE=$base_image . &&
 		docker push $tag || exit 1
-done
 
-# Node 20 for ubuntu
-tag=kikikanri/node20:base-ubuntu
-docker pull ubuntu:22.04 &&
-	docker build -f ./base-ubuntu -t $tag . &&
-	docker push $tag
+	# Base ubuntu
+	tag=kikikanri/node$NODE_VERSION:base-ubuntu
+	docker pull ubuntu:22.04 &&
+		docker build -f ./base-ubuntu -t $tag . --build-arg NODE_VERSION=$NODE_VERSION &&
+		docker push $tag
+done
