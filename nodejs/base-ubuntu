@@ -1,0 +1,20 @@
+FROM ubuntu:22.04
+LABEL org.opencontainers.image.authors="kiki-kanri"
+
+# Install packages
+RUN apt-get update && apt-get upgrade -qy
+RUN apt-get install -qy ca-certificates curl gnupg
+RUN curl -fsSL https://deb.nodesource.com/gpgkey/nodesource-repo.gpg.key | gpg --dearmor -o /etc/apt/keyrings/nodesource.gpg
+RUN echo "deb [signed-by=/etc/apt/keyrings/nodesource.gpg] https://deb.nodesource.com/node_20.x nodistro main" | tee /etc/apt/sources.list.d/nodesource.list
+RUN apt-get update
+RUN apt-get install -qy nodejs
+RUN npm i npm@latest -g
+RUN npm upgrade -g
+RUN corepack enable
+RUN corepack install --global pnpm@latest
+RUN corepack install --global yarn@stable
+RUN apt-get autoremove --purge
+RUN apt-get autoclean
+
+# Set cmd
+CMD ["node"]

@@ -20,3 +20,9 @@ for NODE_VERSION in "${!versions[@]}"; do
 		docker build -f ./puppeteer -t $tag --build-arg BASE_IMAGE=$base_image . &&
 		docker push $tag || exit 1
 done
+
+# Node 20 for ubuntu
+tag=kikikanri/node20:base-ubuntu
+docker pull ubuntu:22.04 &&
+	docker build -f ./base-ubuntu -t $tag . &&
+	docker push $tag
