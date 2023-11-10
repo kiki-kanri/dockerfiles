@@ -13,6 +13,7 @@ RUN npm upgrade -g
 RUN corepack enable
 RUN corepack install --global pnpm@latest
 RUN corepack install --global yarn@stable
+RUN npm cache clean -g --force
 
 # Set pnpm env
 ENV PNPM_HOME="/pnpm"
