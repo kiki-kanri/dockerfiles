@@ -1,8 +1,8 @@
 #!/bin/bash
 
 declare -A versions=(
-	["3.11"]="3.11.7"
-	["3.12"]="3.12.1"
+	["3.11"]="3.11.8"
+	["3.12"]="3.12.2"
 )
 
 for PY_VERSION in "${!versions[@]}"; do
