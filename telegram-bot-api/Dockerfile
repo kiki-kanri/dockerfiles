@@ -12,7 +12,7 @@ RUN apk add -lu --no-cache alpine-sdk cmake git gperf linux-headers openssl-dev 
 RUN git clone --recursive https://github.com/tdlib/telegram-bot-api.git
 
 ## Build
-RUN cd telegram-bot-api &&\
+RUN cd telegram-bot-api && \
 	rm -rf build && \
 	mkdir build && \
 	cd build && \
@@ -37,7 +37,7 @@ WORKDIR /app
 
 ## Install packages
 RUN apk update && apk upgrade --no-cache
-RUN apk add --no-cache --update gcc
+RUN apk add -lu --no-cache gcc
 
 ## Copy files
 COPY --from=build-stage ["/app/telegram-bot-api/bin/telegram-bot-api", "/usr/local/bin"]

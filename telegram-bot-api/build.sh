@@ -1,8 +1,12 @@
 #!/bin/bash
 
 name="telegram-bot-api"
+platforms="linux/amd64,linux/arm64"
 user="kikikanri"
 version="7.1"
-docker build $@ -t $user/$name:$version -t $user/$name:latest --build-arg VERSION=$version . || exit
-docker push $user/$name:$version
-docker push $user/$name:latest
+docker buildx build \
+	-t $user/$name:$version \
+	-t $user/$name:latest \
+	--build-arg VERSION=$version \
+	--platform $platforms \
+	--push .
