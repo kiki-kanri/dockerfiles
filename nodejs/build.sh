@@ -3,6 +3,7 @@
 declare -A versions=(
 	["20"]="20"
 	["21"]="21"
+	["22"]="22"
 )
 
 platforms="linux/amd64,linux/arm64"
