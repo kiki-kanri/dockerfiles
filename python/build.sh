@@ -2,7 +2,7 @@
 
 declare -A versions=(
 	["3.11"]="3.11.9"
-	["3.12"]="3.12.3"
+	["3.12"]="3.12.4"
 )
 
 for PY_VERSION in "${!versions[@]}"; do
