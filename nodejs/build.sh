@@ -17,6 +17,7 @@ for NODE_VERSION in "${!versions[@]}"; do
 			-f ./base-alpine \
 			-t $tag \
 			--build-arg NODE_IMAGE=$node_image \
+			--builder multi-platform \
 			--platform $platforms \
 			--push . || exit 1
 
@@ -28,6 +29,7 @@ for NODE_VERSION in "${!versions[@]}"; do
 			-f ./puppeteer \
 			-t $tag \
 			--build-arg BASE_IMAGE=$base_image \
+			--builder multi-platform \
 			--platform $platforms \
 			--push . || exit 1
 done

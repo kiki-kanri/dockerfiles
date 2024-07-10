@@ -7,7 +7,7 @@ declare -A versions=(
 
 for PY_VERSION in "${!versions[@]}"; do
 	FULL_PY_VERSION=${versions[$PY_VERSION]}
-	BUILD_ARGS="--build-arg FULL_PY_VERSION=$FULL_PY_VERSION --build-arg PY_VERSION=$PY_VERSION --platform linux/amd64,linux/arm64 --push"
+	BUILD_ARGS="--build-arg FULL_PY_VERSION=$FULL_PY_VERSION --build-arg PY_VERSION=$PY_VERSION --builder multi-platform --platform linux/amd64,linux/arm64 --push"
 
 	# Base alpine
 	tag="kikikanri/python$PY_VERSION:base-alpine"
