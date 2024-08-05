@@ -3,7 +3,7 @@
 name="telegram-bot-api"
 platforms="linux/amd64,linux/arm64"
 user="kikikanri"
-version="7.7"
+version="7.8"
 docker buildx build \
 	-t $user/$name:$version \
 	-t $user/$name:latest \
