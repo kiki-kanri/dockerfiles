@@ -8,11 +8,10 @@ RUN apk update && apk upgrade --no-cache
 RUN apk add --no-cache bash perl
 
 # Setup package managers
-RUN npm i npm@latest -g
 RUN npm upgrade -g
-RUN corepack enable
-RUN corepack install --global pnpm@latest
-RUN corepack install --global yarn@stable
+RUN corepack disable pnpm
+RUN corepack disable yarn
+RUN npm i npm@latest pnpm@latest yarn@latest -g
 RUN npm cache clean -g --force
 
 # Set pnpm env
