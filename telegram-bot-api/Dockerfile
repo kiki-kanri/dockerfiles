@@ -1,5 +1,5 @@
 # Build stage
-FROM alpine:latest as build-stage
+FROM alpine:latest AS build-stage
 
 ## Set workdir
 WORKDIR /app
