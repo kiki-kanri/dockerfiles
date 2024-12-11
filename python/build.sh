@@ -1,5 +1,6 @@
 #!/bin/bash
 
+set -e
 declare -A versions=(
     ["3.11"]="3.11.9"
     ["3.12"]="3.12.7"
@@ -12,16 +13,16 @@ for PY_VERSION in "${!versions[@]}"; do
 
     # Base alpine
     tag="kikikanri/python$PY_VERSION:base-alpine"
-    docker pull python:$FULL_PY_VERSION-alpine &&
-        docker buildx build -f ./base-alpine -t $tag $BUILD_ARGS . || exit 1
+    docker pull python:$FULL_PY_VERSION-alpine
+    docker buildx build -f ./base-alpine -t $tag $BUILD_ARGS .
 
     # Base alpine gcc
     tag="kikikanri/python$PY_VERSION:base-alpine-gcc"
-    docker pull kikikanri/python$PY_VERSION:base-alpine &&
-        docker buildx build -f ./base-alpine-gcc -t $tag $BUILD_ARGS . || exit 1
+    docker pull kikikanri/python$PY_VERSION:base-alpine
+    docker buildx build -f ./base-alpine-gcc -t $tag $BUILD_ARGS .
 
     # Base slim
     tag="kikikanri/python$PY_VERSION:base-slim"
-    docker pull python:$FULL_PY_VERSION-slim &&
-        docker buildx build -f ./base-slim -t $tag $BUILD_ARGS . || exit 1
+    docker pull python:$FULL_PY_VERSION-slim
+    docker buildx build -f ./base-slim -t $tag $BUILD_ARGS .
 done
