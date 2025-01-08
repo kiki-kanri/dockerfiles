@@ -3,6 +3,9 @@ ARG PY_VERSION
 FROM kikikanri/python${PY_VERSION}:base-alpine
 LABEL org.opencontainers.image.authors="kiki-kanri"
 
-RUN apk add --no-cache --upgrade gcc g++
+# Install and upgrade packages
+RUN apk update && \
+    apk upgrade --no-cache && \
+    apk add -lu --no-cache g++ gcc
 
 CMD ["python${PY_VERSION}"]
