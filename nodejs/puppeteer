@@ -4,10 +4,12 @@ FROM ${BASE_IMAGE}
 LABEL org.opencontainers.image.authors="kiki-kanri"
 
 # Install and upgrade packages
-RUN apk add --no-cache chromium font-noto-all font-noto-emoji
+RUN apk update && \
+    apk upgrade --no-cache && \
+    apk add -lu --no-cache chromium font-noto-all font-noto-emoji
 
 # Set puppeteer env
-ENV PUPPETEER_SKIP_CHROMIUM_DOWNLOAD=true
-ENV PUPPETEER_EXECUTABLE_PATH=/usr/bin/chromium-browser
+ENV PUPPETEER_SKIP_CHROMIUM_DOWNLOAD=true \
+    PUPPETEER_EXECUTABLE_PATH=/usr/bin/chromium-browser
 
 CMD ["node"]

@@ -4,14 +4,15 @@ FROM ${NODE_IMAGE}
 LABEL org.opencontainers.image.authors="kiki-kanri"
 
 # Install and upgrade packages
-RUN apk update && apk upgrade --no-cache
-RUN apk add --no-cache bash perl
+RUN apk update && \
+    apk upgrade --no-cache && \
+    apk add -lu --no-cache bash perl
 
 # Setup package managers
 RUN npm upgrade -g && \
-    corepack disable pnpm \
-    corepack disable yarn \
-    npm i npm@latest pnpm@latest yarn@latest -g \
+    corepack disable pnpm && \
+    corepack disable yarn && \
+    npm i npm@latest pnpm@latest yarn@latest -g && \
     npm cache clean -g --force
 
 # Set pnpm env
