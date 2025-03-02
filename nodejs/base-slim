@@ -1,18 +1,16 @@
 ARG NODE_IMAGE
 
-FROM ${NODE_IMAGE}
+FROM $NODE_IMAGE
 LABEL org.opencontainers.image.authors="kiki-kanri"
 
-# Install and upgrade packages
+# Install, upgrade packages and setup package managers
 RUN apt-get update && \
     apt-get upgrade -y && \
-    apt-get install -y perl && \
-    apt-get autoremove --purge -y && \
-    apt-get autoclean && \
-    rm -rf /var/cache/apt/* /var/lib/apt/lists/*
-
-# Setup package managers
-RUN npm upgrade -g && \
+    apt-get install -y --no-install-recommends perl && \
+    apt-get autoremove -y --purge && \
+    apt-get clean && \
+    rm -rf /var/cache/apt/* /var/lib/apt/lists/* && \
+    npm upgrade -g && \
     corepack disable pnpm && \
     corepack disable yarn && \
     npm i npm@latest pnpm@latest yarn@latest -g && \

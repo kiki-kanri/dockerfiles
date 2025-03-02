@@ -1,15 +1,15 @@
 ARG NODE_IMAGE
 
-FROM ${NODE_IMAGE}
+FROM $NODE_IMAGE
 LABEL org.opencontainers.image.authors="kiki-kanri"
 
-# Install and upgrade packages
+# Install, upgrade packages and setup package managers
 RUN apk update && \
     apk upgrade --no-cache && \
-    apk add -lu --no-cache bash perl
-
-# Setup package managers
-RUN npm upgrade -g && \
+    apk add -lu --no-cache bash perl && \
+    apk cache clean && \
+    rm -rf /var/cache/apk/* && \
+    npm upgrade -g && \
     corepack disable pnpm && \
     corepack disable yarn && \
     npm i npm@latest pnpm@latest yarn@latest -g && \
