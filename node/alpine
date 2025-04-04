@@ -1,10 +1,10 @@
-# Set build argument
+# Set build arguments
 ARG NODE_TAG
 
 # Set base image
 FROM node:$NODE_TAG
 
-# Declare again after FROM to make it accessible in later stages
+# Set or declare again arguments after FROM to make it accessible in later stages
 ARG NODE_TAG
 
 # Set labels

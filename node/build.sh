@@ -1,19 +1,21 @@
 #!/bin/bash
 
 set -e
-platforms="linux/amd64,linux/arm64"
+cd "$(dirname "$(readlink -f "$0")")"
+
 node_versions=(
     '20'
     '22'
 )
 
-type=(
+platforms='linux/amd64,linux/arm64'
+types=(
     'alpine'
     'slim'
 )
 
 for node_version in "${node_versions[@]}"; do
-    for type in "${type[@]}"; do
+    for type in "${types[@]}"; do
         image_tag="kikikanri/node:$node_version-$type"
         node_tag="$node_version-$type"
         docker pull "node:$node_tag"
