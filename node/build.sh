@@ -4,8 +4,8 @@ set -e
 cd "$(dirname "$(readlink -f "$0")")"
 
 node_versions=(
-    '20'
     '22'
+    '24'
 )
 
 platforms='linux/amd64,linux/arm64'
