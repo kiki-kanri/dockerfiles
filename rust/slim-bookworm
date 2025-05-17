@@ -1,0 +1,28 @@
+FROM rust:slim-bookworm
+
+# Metadata for the image
+LABEL org.opencontainers.image.authors="kiki-kanri" \
+    org.opencontainers.image.base.name="rust:slim-bookworm" \
+    org.opencontainers.image.licenses="MIT" \
+    org.opencontainers.image.source="https://github.com/kiki-kanri/dockerfiles/tree/main/rust" \
+    org.opencontainers.image.title="kikikanri/rust" \
+    org.opencontainers.image.version="slim-bookworm"
+
+# Upgrade system packages and install required tools
+RUN apt-get update && \
+    apt-get upgrade -y && \
+    apt-get install -y --no-install-recommends curl g++ gcc make mold wget && \
+    # Download and install just
+    curl --proto '=https' --tlsv1.2 -sSf https://just.systems/install.sh | bash -s -- --to /usr/local/bin/ && \
+    # Download and install sccache
+    wget -O sccache.tar.gz https://github.com/mozilla/sccache/releases/download/v0.10.0/sccache-v0.10.0-x86_64-unknown-linux-musl.tar.gz && \
+    tar xzf ./sccache.tar.gz && \
+    mv ./sccache-v0.10.0-x86_64-unknown-linux-musl/sccache /usr/local/bin/ && \
+    # Install cargo-audit
+    cargo install cargo-audit --locked && \
+    rm -rf "$CARGO_HOME"/git "$CARGO_HOME"/registry && \
+    # Clean up temporary files and unnecessary packages
+    apt-get remove -y --auto-remove --purge curl wget && \
+    apt-get autoremove -y --purge && \
+    apt-get clean && \
+    rm -rf /var/cache/apt/* /var/lib/apt/lists/* /tmp/*
