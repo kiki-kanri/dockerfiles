@@ -20,7 +20,7 @@ RUN apt-get update && \
     mv ./sccache-v0.10.0-x86_64-unknown-linux-musl/sccache /usr/local/bin/ && \
     # Install cargo-audit
     cargo install cargo-audit --locked && \
-    rm -rf "$CARGO_HOME"/git "$CARGO_HOME"/registry && \
+    rm -rf "${CARGO_HOME}"/git "${CARGO_HOME}"/registry && \
     # Clean up temporary files and unnecessary packages
     apt-get remove -y --auto-remove --purge curl wget && \
     apt-get autoremove -y --purge && \

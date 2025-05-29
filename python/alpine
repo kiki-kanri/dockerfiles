@@ -2,7 +2,7 @@
 ARG FULL_PYTHON_VERSION
 
 # Set base image
-FROM python:$FULL_PYTHON_VERSION-alpine
+FROM python:${FULL_PYTHON_VERSION}-alpine
 
 # Set or declare again arguments after FROM to make it accessible in later stages
 ARG FULL_PYTHON_VERSION
@@ -11,11 +11,11 @@ ARG MAJOR_PYTHON_VERSION
 
 # Set labels
 LABEL org.opencontainers.image.authors="kiki-kanri" \
-    org.opencontainers.image.base.name="python:$FULL_PYTHON_VERSION-alpine" \
+    org.opencontainers.image.base.name="python:${FULL_PYTHON_VERSION}-alpine" \
     org.opencontainers.image.licenses="MIT" \
     org.opencontainers.image.source="https://github.com/kiki-kanri/dockerfiles/tree/main/python" \
     org.opencontainers.image.title="kikikanri/python" \
-    org.opencontainers.image.version="$MAJOR_PYTHON_VERSION-$IMAGE_TYPE"
+    org.opencontainers.image.version="${MAJOR_PYTHON_VERSION}-${IMAGE_TYPE}"
 
 # Install, upgrade packages and install python requirements
 RUN apk update && \

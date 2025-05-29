@@ -2,22 +2,22 @@
 ARG NODE_TAG
 
 # Set base image
-FROM node:$NODE_TAG
+FROM node:${NODE_TAG}
 
 # Set or declare again arguments after FROM to make it accessible in later stages
 ARG NODE_TAG
 
 # Set labels
 LABEL org.opencontainers.image.authors="kiki-kanri" \
-    org.opencontainers.image.base.name="node:$NODE_TAG" \
+    org.opencontainers.image.base.name="node:${NODE_TAG}" \
     org.opencontainers.image.licenses="MIT" \
     org.opencontainers.image.source="https://github.com/kiki-kanri/dockerfiles/tree/main/node" \
     org.opencontainers.image.title="kikikanri/node" \
-    org.opencontainers.image.version="$NODE_TAG"
+    org.opencontainers.image.version="${NODE_TAG}"
 
 # Set envs
 ENV PNPM_HOME="/pnpm"
-ENV PATH="$PNPM_HOME:$PATH"
+ENV PATH="${PNPM_HOME}:${PATH}"
 
 # Install, upgrade packages and setup package managers
 RUN apt-get update && \
