@@ -11,7 +11,7 @@ LABEL org.opencontainers.image.authors="kiki-kanri" \
 # Upgrade system packages and install required tools
 RUN apt-get update && \
     apt-get upgrade -y && \
-    apt-get install -y --no-install-recommends curl g++ gcc make mold wget && \
+    apt-get install -y --no-install-recommends colormake cmake curl g++ gcc mold wget && \
     # Download and install just
     curl --proto '=https' --tlsv1.2 -sSf https://just.systems/install.sh | bash -s -- --to /usr/local/bin/ && \
     # Download and install sccache
