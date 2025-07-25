@@ -22,7 +22,7 @@ ENV PATH="${PNPM_HOME}:${PATH}"
 # Install, upgrade packages and setup package managers
 RUN apk update && \
     apk upgrade --no-cache && \
-    apk add -lu --no-cache bash perl && \
+    apk add -lu --no-cache bash git perl && \
     apk cache clean && \
     rm -rf /var/cache/apk/* && \
     npm upgrade -g && \

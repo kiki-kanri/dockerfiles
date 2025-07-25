@@ -22,7 +22,7 @@ ENV PATH="${PNPM_HOME}:${PATH}"
 # Install, upgrade packages and setup package managers
 RUN apt-get update && \
     apt-get upgrade -y && \
-    apt-get install -y --no-install-recommends perl && \
+    apt-get install -y --no-install-recommends git perl && \
     apt-get autoremove -y --purge && \
     apt-get clean && \
     rm -rf /var/cache/apt/* /var/lib/apt/lists/* && \
