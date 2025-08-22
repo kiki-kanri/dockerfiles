@@ -30,6 +30,3 @@ RUN apk update && \
     corepack disable yarn && \
     npm i npm@latest pnpm@latest yarn@latest -g && \
     npm cache clean -g --force
-
-# Set cmd
-CMD ["node"]

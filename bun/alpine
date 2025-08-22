@@ -21,6 +21,3 @@ RUN apk update && \
     apk add -lu --no-cache bash git perl && \
     apk cache clean && \
     rm -rf /var/cache/apk/*
-
-# Set cmd
-CMD ["bun"]
