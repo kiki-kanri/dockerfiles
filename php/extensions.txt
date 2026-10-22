@@ -1,4 +1,5 @@
 @composer
+apcu
 bcmath
 bz2
 exif
@@ -14,9 +15,7 @@ memcached
 mongodb
 msgpack
 mysqli
-opcache
 pcntl
-pcov
 pdo_mysql
 pdo_pgsql
 pgsql
@@ -25,7 +24,7 @@ raphf
 redis
 sockets
 swoole
-xdebug
+xsl
 yaml
 zip
 zstd

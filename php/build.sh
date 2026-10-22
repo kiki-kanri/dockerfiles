@@ -7,11 +7,24 @@ cd "${SCRIPT_DIR}"
 
 platforms='linux/amd64,linux/arm64'
 
-docker pull php:8.4-fpm-bookworm
+if ! docker buildx inspect multi-platforms > /dev/null 2>&1; then
+    docker buildx create --name multi-platforms --driver docker-container --bootstrap
+fi
+ 
+docker pull php:8.4-fpm-trixie
 docker buildx build \
-    -f ./8.4-fpm-bookworm \
-    -t 'kikikanri/php:8.4-fpm-bookworm' \
-    --builder multi-platform \
+    -f ./8.4-fpm-trixie \
+    -t 'kikikanri/php:8.4-fpm-trixie' \
+    --builder multi-platforms \
+    --no-cache \
+    --platform "${platforms}" \
+    --push .
+
+docker pull php:8.5-fpm-trixie
+docker buildx build \
+    -f ./8.5-fpm-trixie \
+    -t 'kikikanri/php:8.5-fpm-trixie' \
+    --builder multi-platforms \
     --no-cache \
     --platform "${platforms}" \
     --push .
