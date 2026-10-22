@@ -3,36 +3,12 @@
 # Set args
 ARG PHP_VERSION
 
-# Shared build tool stage, independent of the PHP version.
-FROM debian:trixie-slim AS kache
-RUN \
-    apt-get update && \
-    apt-get install -y --no-install-recommends ca-certificates curl && \
-    install -d -m 0755 /etc/apt/keyrings && \
-    curl -fsSL https://r2.kunobi.com/kache/apt/gpg.key -o /etc/apt/keyrings/kache.asc && \
-    echo 'deb [signed-by=/etc/apt/keyrings/kache.asc] https://r2.kunobi.com/kache/apt stable main' >/etc/apt/sources.list.d/kache.list && \
-    apt-get update && \
-
-    # Only extract the build tool; its postinst runs shim detection that fails under QEMU.
-    cd /tmp && \
-    apt-get download kache && \
-    dpkg-deb --extract ./kache_*.deb /opt/kache && \
-    rm -f ./kache_*.deb && \
-    apt-get clean && \
-    rm -rf /var/cache/apt/* /var/lib/apt/lists/*
-
-# Main stage
 FROM php:${PHP_VERSION}-fpm-trixie
 
-# Cache compiler outputs across PHP versions, separately for each architecture.
-# Tool binaries, runtime state and cached objects stay out of the final image.
-ARG TARGETARCH
+# Install packages and extensions in one layer.
 ADD --chmod=0700 https://github.com/mlocati/docker-php-extension-installer/releases/latest/download/install-php-extensions /usr/local/bin/
 COPY ./extensions.txt /tmp/extensions.txt
-RUN --mount=type=bind,from=kache,source=/opt/kache/usr/bin/kache,target=/usr/local/bin/kache \
-    --mount=type=tmpfs,target=/tmp/kache-runtime \
-    --mount=type=cache,id=php-kache-${TARGETARCH},target=/var/cache/kache,sharing=locked \
-    \
+RUN \
     ## Base
     apt-get update && \
     apt-get upgrade -y && \
@@ -49,9 +25,6 @@ RUN --mount=type=bind,from=kache,source=/opt/kache/usr/bin/kache,target=/usr/loc
     npm cache clean -g --force && \
     \
     ## PHP Extensions
-    export KACHE_CACHE_DIR='/var/cache/kache' KACHE_RUNTIME_DIR='/tmp/kache-runtime' KACHE_MAX_SIZE='10GiB' && \
-    # Explicit compiler wrappers avoid shim detection under QEMU as well.
-    export CC='kache cc' CXX='kache c++' && \
     # Shared modules need PIC; do not inherit the PHP executable's PIE flags.
     export CPPFLAGS='-D_LARGEFILE_SOURCE -D_FILE_OFFSET_BITS=64 -D_FORTIFY_SOURCE=3' && \
     # The PECL installer overrides CPPFLAGS, so keep these defines in C/CXXFLAGS too.
@@ -63,7 +36,6 @@ RUN --mount=type=bind,from=kache,source=/opt/kache/usr/bin/kache,target=/usr/loc
     \
     ## Debug extensions (installed but disabled; downstream can enable either one)
     IPE_DONT_ENABLE=1 install-php-extensions xdebug pcov && \
-    kache stats && \
     \
     ## Cleanup
     apt-get remove -y mold && \
