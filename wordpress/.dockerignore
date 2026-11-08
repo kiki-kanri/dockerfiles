@@ -1,0 +1,7 @@
+*
+!Dockerfile
+!docker-entrypoint.sh
+!wp-config-docker.php
+!security.ini
+!security-fpm.conf
+!image-system-ca.php
